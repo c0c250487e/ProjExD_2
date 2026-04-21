@@ -46,6 +46,9 @@ def main():
         for event in pg.event.get():
             if event.type == pg.QUIT: 
                 return
+            if kk_rct.colliderect(bb_rct):  # こうかとんと爆弾の衝突判定
+                print("ゲームオーバー")
+                return  # ゲームオーバーの意味でmain関数から出る
         screen.blit(bg_img, [0, 0]) 
 
         key_lst = pg.key.get_pressed()
@@ -73,7 +76,7 @@ def main():
             vx *= -1
         if not tate:  # 縦方向の判定
             vy *= -1
-            
+
         screen.blit(bb_img,bb_rct) #爆弾を表示する
         pg.display.update()
         tmr += 1
