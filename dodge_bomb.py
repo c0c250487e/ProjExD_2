@@ -83,6 +83,16 @@ def main():
         clock.tick(50)
 
 
+def gameover(screen: pg.Surface) -> None:
+    black_surf = pg.Surface(1100,650)
+    pg.draw.rect(black_surf, (0, 0, 0), (0, 0, 1100, 650))
+    black_surf.set_alpha(150)
+
+    fonto = pg.font.Font(None, 80)
+    fonto = fonto.render("Game Over", True, (255, 255, 255))
+    screen.blit(black_surf, (0, 0))
+        
+
 if __name__ == "__main__":
     pg.init()
     main()
