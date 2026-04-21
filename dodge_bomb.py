@@ -14,6 +14,22 @@ DELTA = {
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 
+def gameover(screen: pg.Surface) -> None:
+    """
+    gameoverを読み込む関数
+    引数：スクリーン
+    """
+    bb_img = pg.Surface((1100,650))
+    pg.draw.rect(bb_img, (0, 0, 0), pg.Rect(0, 0, WIDTH, HEIGHT))
+    bb_img.set_alpha(100)
+    fonto_lose = pg.font.Font(None, 80)
+    txt_lose = fonto_lose.render("Game Over", True, (255, 255 , 255))
+    rct = txt_lose.get_rect()
+    rct.center = WIDTH/2,HEIGHT/2
+    bb_img.blit(txt_lose, rct)
+    screen.blit(txt_lose, [300, 300])
+
+
 def check_bound(rct: pg.Rect) -> tuple[bool, bool]:
 
     yoko, tate = True, True
@@ -46,6 +62,7 @@ def main():
         for event in pg.event.get():
             if event.type == pg.QUIT: 
                 return
+            
             if kk_rct.colliderect(bb_rct):  # こうかとんと爆弾の衝突判定
                 print("ゲームオーバー")
                 return  # ゲームオーバーの意味でmain関数から出る
@@ -82,16 +99,6 @@ def main():
         tmr += 1
         clock.tick(50)
 
-
-def gameover(screen: pg.Surface) -> None:
-    black_surf = pg.Surface(1100,650)
-    pg.draw.rect(black_surf, (0, 0, 0), (0, 0, 1100, 650))
-    black_surf.set_alpha(150)
-
-    fonto = pg.font.Font(None, 80)
-    fonto = fonto.render("Game Over", True, (255, 255, 255))
-    screen.blit(black_surf, (0, 0))
-        
 
 if __name__ == "__main__":
     pg.init()
